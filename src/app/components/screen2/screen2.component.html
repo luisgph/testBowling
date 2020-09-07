@@ -1,0 +1,45 @@
+<div class="container margin-top">
+    <form [formGroup]="dynamicForm" (ngSubmit)="onSubmit()">
+        <div class="row">
+            <div class="col">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="form-row">
+                            <div class="col-7">
+                                <h3>PLAYERS</h3>
+                            </div>
+                            <div class="col-5 form-inline content-actions">
+                                <input type="text" placeholder="# Players" class="form-control w-50" (keypress)="onlyNumber($event)" formControlName="numberOfPlayers">
+                                <button class="btn btn-info rounded-circle" (click)="onChangePlayers()"><img src="../../../assets/anadir.svg"></button>
+                                <button class="btn btn-info rounded-circle" (click)="back()"><img src="../../../assets/casa.svg"></button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="form-group">
+                            <div *ngFor="let player of t.controls; let i = index" class="list-group list-group-flush">
+                                <div [formGroup]="player" class="form-row">
+                                    <div class="form-group col-6">
+                                        <label>Player {{ i + 1 }}</label>
+                                        <input type="text" formControlName="name" placeholder="Name" class="form-control" [ngClass]="{ 'is-invalid': player.controls.name.errors && player.controls.name.touched }" />
+                                        <div *ngIf="player.controls.name.errors" class="invalid-feedback">
+                                            <div *ngIf="player.controls.name.errors?.required">Player {{ i + 1 }} is required</div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-6">
+                                        <label>Color</label><br>
+                                        <input type="color" formControlName="palete" class="input-color" [ngClass]="{ 'is-invalid': player.controls.palete.errors && player.controls.palete.touched }">
+                                        <div *ngIf="player.controls.palete.errors" class="invalid-feedback">
+                                            <div *ngIf="player.controls.palete.errors?.required">Color is required</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-outline-info" *ngIf="isVisible" [disabled]="dynamicForm.invalid">Start Game</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

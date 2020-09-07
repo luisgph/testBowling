@@ -1,0 +1,63 @@
+<div class="container-fluid margin-top">
+    <div class="row">
+        <div class="col">
+            <div class="card">
+                <div class="card-header">
+                    <div class="form-row">
+                        <div class="col-8">
+                            <h3>LET'S GO TO PLAY</h3>
+                        </div>
+                        <div class="col-auto form-inline content-actions">
+                            <label>End game?</label>
+                            <button class="btn btn-link" (click)="exit()" onclick="parar();">Yes</button>
+                            <button class="btn btn-link">No</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="alert alert-success" role="alert" *ngIf="winner">
+                        <strong> THE WINNER IS {{ name | uppercase }} CONGRATS!</strong>
+                    </div>
+                    <table class="tableScore">
+                        <thead>
+                            <tr>
+                                <th class="tableTitle">Players</th>
+                                <th class="tableTitle" [attr.colspan]="i !== 9 ? 2 : 3" *ngFor="let item of [1,2,3,4,5,6,7,8,9,10];let i = index">{{ item }}</th>
+                                <th class="tableTitle">Score</th>
+                            </tr>
+                        </thead>
+                        <tbody *ngFor="let item of player">
+                            <tr [ngStyle]="{'background-color': item.palete }">
+                                <td rowspan="2">{{ item.name | uppercase }}</td>
+                                <td class="tableRoll" *ngFor="let roll of item.rolls">{{ roll }}</td>
+                                <td class="tableTotalScore" rowspan="2"><strong>{{ item.totalScore }}</strong></td>
+                            </tr>
+                            <tr>
+                                <td class="tableRoll" [attr.colspan]="i !== 9 ? 2 : 3" *ngFor="let frame of item.scoreFrame; let i = index">{{ frame }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <br>
+                    <button class="btn btn-outline-info" (click)="play()" onclick="iniciar();">Play</button>&nbsp;
+                    <button class="btn btn-outline-danger" (click)="restart()">Restart Game</button>
+                    <br>
+                    <div id="lienzo">
+                        <div id="imagen"></div>
+                        <div id="pin1"></div>
+                        <div id="pin2"></div>
+                        <div id="pin3"></div>
+                        <div id="pin4"></div>
+                        <div id="pin5"></div>
+                        <div id="pin6"></div>
+                        <div id="pin7"></div>
+                        <div id="pin8"></div>
+                        <div id="pin9"></div>
+                        <div id="pin10"></div>
+                    </div>
+                    <input type="hidden" id="hiddenStrike" value="{{ hiddenStrike }}">
+                    <br>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
